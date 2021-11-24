@@ -1,0 +1,18 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Пошук по Wiki
+{% endblock %}
+
+{% block body %}
+    <h1>Результати пошуку для {{ query }}</h1>
+
+    <ul>
+        {% for entry in entries %}
+            <li><a href="../{{ entry }}">{{ entry }}</a></li>
+        {% empty %}
+            <h3>Нічого не знайдено</h3>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

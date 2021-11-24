@@ -1,0 +1,24 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ TITLE }}
+{% endblock %}
+
+{% block body %}
+
+    <form role="form" action="{% url 'encyclopedia:save_edit' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="text">Заголовок статті:</label>
+            <input type="text" class="form-control" name="arttitle" value="{{ ARTICLE_TITLE }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="text">Вміст статті:</label>
+            <textarea rows="11" type="text" class="form-control" name="arttext">{{ ARTICLE | safe }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-primary" name="_save">Записати</button>
+        <a class="btn btn-outline-secondary" href="{% url 'encyclopedia:article' ARTICLE_TITLE %}">Відмінити</a>
+
+    </form>
+
+{% endblock %}

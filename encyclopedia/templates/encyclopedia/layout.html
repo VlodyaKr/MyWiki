@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row" style="max-width: 100%;">
+            <div class="sidebar col-lg-2 col-md-3">
+                <img src="{% static 'encyclopedia/logo.jpg' %}" alt="Wiki" class="rounded img-fluid">
+                <h2>Моя Wiki</h2><br>
+                <form action="{% url 'encyclopedia:search' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </span>
+                        <input class="form-control" type="text" name="query" placeholder="Пошук по Wiki">
+                    </div>
+                </form><hr>
+                <div>
+                    <a href="{% url 'encyclopedia:index' %}">Головна сторінка</a>
+                </div>
+                <div>
+                    <a href="{% url 'encyclopedia:new_page' %}">Створити сторінку</a>
+                </div>
+                <div>
+                    <a href="{% url 'encyclopedia:random_page' %}">Випадкова сторінка</a>
+                </div><hr>
+                <div>
+                    <a href="https://markdown.rozh2sch.org.ua" target="_blank">Путівник по Markdown</a>
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+        <footer class="footer fixed-bottom">
+            <div class="container">
+                Copyright © 2021 by Volodymyr Kravchenko
+            </div>
+        </footer>
+    </body>
+</html>
